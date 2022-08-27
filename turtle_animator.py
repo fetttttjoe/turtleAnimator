@@ -32,11 +32,10 @@ def drawTurtle(repetitions, devider, speed, backGroundColor, circleSize, innerMo
         baseColor += 1/devider
         turtle.color(color)
         for i in range(5):
-            if (innerMovement):
-                turtle.forward(innerMovementDistance)
-
             turtle.circle(circleSize)
             turtle.left(rotationAngleUnits)
+            if (innerMovement):
+                turtle.forward(innerMovementDistance)
     turtle.hideturtle()
     input("Press Enter to exit")
 
