@@ -12,14 +12,14 @@ def help():
     print("  -s, --speed\t\tSpeed of the turtle")
     print("  -cs, --circleSize\tSize of the circle")
     print("  -d, --devider\t\tDevider for Color adjustment (c/d)/ draw cycle")
-    print("  -i, --innerMovement\tBool for inner movement")
-    print("  -id, --innerMovementDistance\tInner Movement Distance (px)")
+    print("  -is, --innerSpace\tSpace inside")
     print("  -rau, --rotationAngleUnits\tRotation Angle Units (degrees)")
-    print("  -r, --repetition\t\tRepetition of cycles")
+    print("  -spr, --shiftPerRepetiton\tShift per Repetition")	
+    print("  -r, --repetition\tRepetition of cycles")
     exit(0)
 
 
-def drawTurtle(repetitions, devider, speed, backGroundColor, circleSize, innerMovement, innerMovementDistance, rotationAngleUnits, baseColor):
+def drawTurtle(repetitions, devider, speed, backGroundColor, circleSize, shiftPerRepetition, innerSpace, rotationAngleUnits, baseColor):
     WIDTH = HEIGHT = .8
     screen = t.Screen()
     screen.setup(WIDTH, HEIGHT)  
@@ -31,11 +31,14 @@ def drawTurtle(repetitions, devider, speed, backGroundColor, circleSize, innerMo
         color = colorsys.hsv_to_rgb(baseColor, 1, 0.9)
         baseColor += 1/devider
         turtle.color(color)
+        turtle.forward(shiftPerRepetition)
         for i in range(5):
             turtle.circle(circleSize)
             turtle.left(rotationAngleUnits)
-            if (innerMovement):
-                turtle.forward(innerMovementDistance)
+            turtle.forward(innerSpace)
+            
+
+
     turtle.hideturtle()
     input("Press Enter to exit")
 
@@ -46,9 +49,9 @@ if __name__ == '__main__':
     speed = 50
     circleSize = 100
     devider = 22
-    innerMovement = True
-    innerMovementDistance = 300
-    repetitions = 15
+    innerSpace = 100
+    shiftPerRepetition = 0
+    repetitions = 10
     rotationAngleUnits = 100
     baseColor = 0
     arguments = sys.argv[1:]
@@ -65,10 +68,8 @@ if __name__ == '__main__':
             circleSize = int(arguments[arguments.index(element)+1])
         elif(element == "-d" or element == "--devider"):
             devider = int(arguments[arguments.index(element)+1])
-        elif(element == "-i" or element == "--innerMovement"):
-            innerMovement = bool(arguments[arguments.index(element)+1])
-        elif(element == "-id" or element == "--innerMovementDistance"):
-            innerMovementDistance = int(arguments[arguments.index(element)+1])
+        elif(element == "-ics" or element == "--innerCircleShift"):
+            innerSpace = int(arguments[arguments.index(element)+1])
         elif(element == "-rau" or element == "--rotationAngleUnits"):
             rotationAngleUnits = int(arguments[arguments.index(element)+1])
         elif(element == "-r" or element == "--repetition"):
@@ -79,12 +80,13 @@ if __name__ == '__main__':
     print("Speed: " + str(speed))
     print("Circle Size: " + str(circleSize))
     print("Devider: " + str(devider))
-    print("Inner Movement: " + str(innerMovement))
-    print("Inner Movement Distance: " + str(innerMovementDistance))
+    print("Inner Space: " + str(innerSpace))
+    print("Shift per Repetition: " + str(shiftPerRepetition))
     print("Rotation Angle Units: " + str(rotationAngleUnits))
     print("Repetitions: " + str(repetitions))
 
     drawTurtle(repetitions=repetitions, devider=devider, speed=speed, backGroundColor=backGroundColor,
-               circleSize=circleSize, innerMovement=innerMovement, innerMovementDistance=innerMovementDistance,
+               circleSize=circleSize, innerSpace=innerSpace,
+               shiftPerRepetition=shiftPerRepetition,
                rotationAngleUnits=rotationAngleUnits, baseColor=baseColor)
     
